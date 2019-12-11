@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12">
+      <button class="btn btn-large btn-dark m-2" data-toggle="modal" data-target="#createTeam">Create Team</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+      <div class="card m-2">
+          <div class="card-body p-0">
+              <table class="table m-0">
+                  <thead>
+                      <tr>
+                          <th scope="col">Team Code</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Venue</th>
+                          <th scope="col">N° Players</th>
+                          <th scope="col">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let team of teams">
+                          <th>{{team.code}}</th>
+                          <td>{{team.name}}</td>
+                          <td>{{team.venue}}</td>
+                          <td>{{getPlayersInTeam(team)}}</td>
+                          <td><button class="btn py-0" (click)="removeTeam(team)"><i class="fa fa-trash"
+                            style="color: tomato;"></i></button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="createTeam" tabindex="-1" role="dialog" aria-labelledby="createTeamLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="createTeamLabel">Create a Team</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <input type="text" class="form-control mb-1" [(ngModel)]="currentTeam.name" placeholder="Name">
+              <input type="text" class="form-control" [(ngModel)]="currentTeam.venue" placeholder="Venue">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" [disabled]="canSubmit()" (click)="addTeam()">Save</button>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-large btn-dark m-2" data-toggle="modal" data-target="#createGame">Create a Game</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card m-2">
+      <div class="card-body p-0">
+        <table class="table m-0">
+          <thead>
+            <tr>
+              <th scope="col">Game Code</th>
+              <th scope="col">Home Team</th>
+              <th scope="col">Home Players</th>
+              <th scope="col">Away Team</th>
+              <th scope="col">Away Players</th>
+              <th scope="col">Venue</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let game of games">
+              <th>{{game.code}}</th>
+              <td>{{game.home}}</td>
+              <td>{{game.homePlayers}}</td>
+              <td>{{game.away}}</td>
+              <td>{{game.awayPlayers}}</td>
+              <td>{{game.venue}}</td>
+              <td>{{game.date}}</td>
+              <td><button class="btn py-0" (click)="removeGame(game)"><i class="fa fa-trash"
+                    style="color: tomato;"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="createGame" tabindex="-1" role="dialog" aria-labelledby="createGameLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createGameLabel">Create a Game</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <label for="homeTeam">Home Team</label>
+            <select id="homeTeam" (change)="setVenue()" [(ngModel)]="currentGame.home" class="form-control mb-1">
+              <option selected disabled>Select a Team</option>
+              <option *ngFor="let team of teams" [value]="team.code">{{team.name}}</option>
+            </select>
+            <app-playerselector *ngIf="currentGame.home" [chosenTeam]="currentGame.home"
+              (valueChange)="updateHomePlayers($event)"></app-playerselector>
+          </div>
+          <div class="col-6">
+            <label for="awayTeam">Away Team</label>
+            <select id="awayTeam" [(ngModel)]="currentGame.away" class="form-control mb-1">
+              <option selected disabled>Select a Team</option>
+              <option *ngFor="let team of teams" [value]="team.code">{{team.name}}</option>
+            </select>
+            <app-playerselector *ngIf="currentGame.away" [chosenTeam]="currentGame.away"
+              (valueChange)="updateAwayPlayers($event)"></app-playerselector>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label for="dateInput">Date</label>
+            <input id="dateInput" class="form-control" type="date" [(ngModel)]="currentGame.date">
+          </div>
+        </div>
+        <div class="row" *ngIf="currentGame.venue">
+            <div class="col-12">
+              <input class="form-control mt-2" type="text" [placeholder]="'Venue: ' + currentGame.venue" readonly>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" [disabled]="canSubmit()" (click)="addGame()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
