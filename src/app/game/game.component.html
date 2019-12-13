@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12">
-    <button class="btn btn-large btn-dark m-2" data-toggle="modal" data-target="#createGame">Create a Game</button>
+    <button class="btn btn-large btn-dark m-2" data-toggle="modal" data-target="#createGame" title="Use this button to create a game">Create a Game</button>
   </div>
 </div>
 <div class="row">
@@ -28,9 +28,9 @@
               <td>{{game.away}}</td>
               <td>{{game.awayPlayers}}</td>
               <td>{{game.venue}}</td>
-              <td>{{game.date}}</td>
+              <td>{{formatDate(game.date)}}</td>
               <td><button class="btn py-0" (click)="removeGame(game)"><i class="fa fa-trash"
-                    style="color: tomato;"></i></button></td>
+                    style="color: tomato;" [title]="'Delete ' + game.code"></i></button></td>
             </tr>
           </tbody>
         </table>

@@ -35,6 +35,15 @@ export class GameComponent implements OnInit {
 
   addGame() {
     if (!this.canSubmit()) {
+      console.log(this.currentGame.date);
+      
+      let year = this.currentGame.date.slice(0,4).slice(2,4);
+      console.log(year);
+      
+      let month = this.currentGame.date.slice(5,7);
+      let day = this.currentGame.date.slice(8,10);
+      this.currentGame.date = day + month + year;
+      
       this.currentGame.venue = this.apiService.getTeam(this.currentGame.home).venue;
       this.apiService.createGame(this.currentGame);
     }
@@ -84,7 +93,7 @@ export class GameComponent implements OnInit {
   }
 
   canSubmit() {
-    if (this.currentGame.home && this.currentGame.away && this.currentGame.homePlayers && this.currentGame.awayPlayers) {
+    if (this.currentGame.home && this.currentGame.away && this.currentGame.homePlayers && this.currentGame.awayPlayers && this.currentGame.date) {
        if(this.currentGame.homePlayers.length > 0 && this.currentGame.awayPlayers.length > 0) {
         return false;
        }
@@ -97,6 +106,13 @@ export class GameComponent implements OnInit {
   }
   updateAwayPlayers(event) {
     this.currentGame.awayPlayers = event;
+  }
+
+  formatDate(date: string) {
+    let dd = date.slice(0,2);
+    let mm = date.slice(2,4);
+    let yy = date.slice(4,6);
+    return dd + "/" + mm + "/" + yy;
   }
 
 }

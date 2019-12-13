@@ -3,9 +3,8 @@
         aria-haspopup="true" aria-expanded="false">
         Choose Players
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" (click)="refresh()">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a onclick="event.stopPropagation();" class="dropdown-item" *ngFor="let player of players"
-            [ngStyle]="{'background-color': backgroundColor(player.code)}"
-            (click)="update(player.code)">{{player.surname}}</a>
+            [class]="playerChoiceClass(player)" (click)="update(player)">{{player.surname}}</a>
     </div>
 </div>
